@@ -109,8 +109,8 @@ client.on('message', (message) => {
     commandList.forEach(x => {
       commandStr += `• \`\`${changeCommandStringLength(`${x.name}`)}\`\` : **${x.desc}**\n`;
     });
-
-    else if(message.content == '!도움 관리자') {
+    message.channel.send(embed)
+  }  else if(message.content == '!도움 관리자') {
       let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
       let commandList = [
         {name: '!공지 등록', desc: '공지 등록하기'},
