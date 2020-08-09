@@ -99,6 +99,16 @@ client.on('message', (message) => {
       {name: '!초대코드', desc: '해당 채널의 초대 코드 표기'},
       {name: '!초대코드2', desc: '봇이 들어가있는 모든 채널의 초대 코드 표기'},
     ];
+
+    message.channel.send(embed)
+  } else if(message.content == '!도움 관리자') {
+      let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
+      let commandList = [
+        {name: '!공지 등록', desc: '공지 등록하기'},
+        {name: '!공지 목록', desc: '등록한 공지 확인하기'},
+        {name: '!이벤트 등록', desc: '이벤트 등록하기'},
+        {name: '!이벤트 목록', desc: '등록한 이벤트 확인하기'},
+      ];
     let commandStr = '';
     let embed = new Discord.RichEmbed()
       .setAuthor('Help of KRPL', helpImg)
@@ -109,25 +119,6 @@ client.on('message', (message) => {
     commandList.forEach(x => {
       commandStr += `• \`\`${changeCommandStringLength(`${x.name}`)}\`\` : **${x.desc}**\n`;
     });
-    message.channel.send(embed)
-  }  else if(message.content == '!도움 관리자') {
-      let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
-      let commandList = [
-        {name: '!공지 등록', desc: '공지 등록하기'},
-        {name: '!공지 목록', desc: '등록한 공지 확인하기'},
-        {name: '!이벤트 등록', desc: '이벤트 등록하기'},
-        {name: '!이벤트 목록', desc: '등록한 이벤트 확인하기'},
-      ];
-      let commandStr = '';
-      let embed = new Discord.RichEmbed()
-        .setAuthor('AdminHelp of KRPL', helpImg)
-        .setColor('#ed0000')
-        .setFooter(`KRPL`)
-        .setTimestamp()
-      
-      commandList.forEach(x => {
-        commandStr += `• \`\`${changeCommandStringLength(`${x.name}`)}\`\` : **${x.desc}**\n`;
-      });
 
     embed.addField('Commands: ', commandStr);
 
