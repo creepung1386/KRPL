@@ -73,30 +73,38 @@ if(message.content == '!도움') {
     let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
     let commandList = [
       {name: '!도움', desc: '도움을 준다'},
-      {name: 'ping', desc: '현재 핑 상태'},
-      {name: 'embed', desc: 'embed 예제1'},
+      {name: 'ping', desc: '현재 핑 상태'}
       {name: '!전체공지', desc: 'dm으로 전체 공지 보내기'},
       {name: '!전체공지2', desc: 'dm으로 전체 embed 형식으로 공지 보내기'},
       {name: '!청소', desc: '텍스트 지움'},
       {name: '!초대코드', desc: '해당 채널의 초대 코드 표기'},
       {name: '!초대코드2', desc: '봇이 들어가있는 모든 채널의 초대 코드 표기'},
     ];
-
-    message.channel.send(embed)
-  } else if(message.content == '!도움 관리자') {
-      let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
-      let commandList = [
-        {name: '!공지 등록', desc: '공지 등록하기'},
-        {name: '!공지 목록', desc: '등록한 공지 확인하기'},
-        {name: '!이벤트 등록', desc: '이벤트 등록하기'},
-        {name: '!이벤트 목록', desc: '등록한 이벤트 확인하기'},
-      ];
     let commandStr = '';
     let embed = new Discord.RichEmbed()
       .setAuthor('Help of KRPL', helpImg)
       .setColor('#186de6')
       .setFooter(`KRPL`)
       .setTimestamp()
+      message.channel.send(embed)
+    
+    commandList.forEach(x => {
+      commandStr += `• \`\`${changeCommandStringLength(`${x.name}`)}\`\` : **${x.desc}**\n`;
+    });
+    
+   if(message.content == '!도움 관리자') {
+      let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
+      let commandList = [
+        {name: '!이벤트 등록', desc: '이벤트 등록하기'},
+        {name: '!이벤트 목록', desc: '등록한 이벤트 확인하기'},
+      ];
+    let commandStr = '';
+    let embed = new Discord.RichEmbed()
+      .setAuthor('Admin Help of KRPL', helpImg)
+      .setColor('#ED0000')
+      .setFooter(`KRPL`)
+      .setTimestamp()
+      message.channel.send(embed)
     
     commandList.forEach(x => {
       commandStr += `• \`\`${changeCommandStringLength(`${x.name}`)}\`\` : **${x.desc}**\n`;
@@ -139,7 +147,7 @@ if(message.content == '!도움') {
         .setColor('#186de6')
         .setFooter(`KRPL`)
         .setTimestamp()
-  
+      
       embed.addField('공지: ', contents);
   
       message.member.guild.members.array().forEach(x => {
@@ -164,14 +172,14 @@ if(message.content == '!도움') {
     } else {
       return message.reply('채널에서 실행해주세요.');
     }
-  } else if(message.content.startsWith('!청소')) {
+  } else if(message.content.startsWith('!클리닝')) {
     if(message.channel.type == 'dm') {
       return message.reply('dm에서 사용할 수 없는 명령어 입니다.');
     }
     
     if(message.channel.type != 'dm' && checkPermission(message)) return
 
-    var clearLine = message.content.slice('!클리닝 '.length);
+    var clearLine = message.content.slice('!클리닝'.length);
     var isNum = !isNaN(clearLine)
 
     if(isNum && (clearLine <= 0 || 100 < clearLine)) {
@@ -198,7 +206,7 @@ if(message.content == '!도움') {
     } else {
       message.channel.bulkDelete(parseInt(clearLine)+1)
         .then(() => {
-          AutoMsgDelete(message, `<@${message.author.id}> ` + parseInt(clearLine) + "개의 메시지를 삭제했습니다. (이 메세지는 잠시 후에 사라집니다.)");
+          AutoMsgDelete(message, `<@${message.author.id}> ` + parseInt(clearLine) + "개의 메시지를 삭제했습니다. ``(이 메세지는 잠시 후에 사라집니다.)``");
         })
         .catch(console.error)
     }
@@ -207,7 +215,7 @@ if(message.content == '!도움') {
 
 function checkPermission(message) {
   if(!message.member.hasPermission("MANAGE_MESSAGES")) {
-    message.channel.send(`<@${message.author.id}> ` + "명령어를 수행할 관리자 권한을 소지하고 있지않습니다.")
+    message.channel.send(`<@${message.author.id}> ` + "```명령어를 수행할 관리자 권한을 소지하고 있지않습니다.```")
     return true;
   } else {
     return false;
