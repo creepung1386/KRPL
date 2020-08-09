@@ -4,7 +4,7 @@ const token = process.env.token;
 const moment = require("moment");
 require("moment-duration-format");
 const welcomeChannelName = "🖐안녕하세요";
-const byeChannelName = "🖐안녕히가세요";
+const byeChannelName = "🖐안녕하세요";
 const welcomeChannelComment = "님! KRPL 에 오신것을 환영합니다!";
 const byeChannelComment = "님 실수로 나간거죠..?";
 
@@ -138,10 +138,10 @@ client.on('message', (message) => {
           message.channel.send('**'+message.guild.channels.get(message.channel.id).guild.name+'** 채널 권한이 없어 초대코드 발행 실패')
         }
       })
-  } else if(message.content.startsWith('!전체공지2')) {
+  } else if(message.content.startsWith('!DM공지')) {
     if(checkPermission(message)) return
     if(message.member != null) { // 채널에서 공지 쓸 때
-      let contents = message.content.slice('!전체공지2'.length);
+      let contents = message.content.slice('!DM공지'.length);
       let embed = new Discord.RichEmbed()
         .setAuthor('공지 of KRPL')
         .setColor('#186de6')
@@ -159,10 +159,10 @@ client.on('message', (message) => {
     } else {
       return message.reply('채널에서 실행해주세요.');
     }
-  } else if(message.content.startsWith('!전체공지')) {
+  } else if(message.content.startsWith('!공지')) {
     if(checkPermission(message)) return
     if(message.member != null) { // 채널에서 공지 쓸 때
-      let contents = message.content.slice('!전체공지'.length);
+      let contents = message.content.slice('!공지'.length);
       message.member.guild.members.array().forEach(x => {
         if(x.user.bot) return;
         x.user.send(`<@${message.author.id}> ${contents}`);
@@ -179,7 +179,7 @@ client.on('message', (message) => {
     
     if(message.channel.type != 'dm' && checkPermission(message)) return
 
-    var clearLine = message.content.slice('!청소 '.length);
+    var clearLine = message.content.slice('!클리닝 '.length);
     var isNum = !isNaN(clearLine)
 
     if(isNum && (clearLine <= 0 || 100 < clearLine)) {
